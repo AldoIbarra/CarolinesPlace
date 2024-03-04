@@ -1,9 +1,19 @@
 import express from "express";
+import morgan from "morgan";
+
+import cors from "cors";
+
 
 const app = express();
 
-// Middleware para parsear el cuerpo de la solicitud en formato JSON
+// Habilitar CORS para todas las solicitudes
+app.use(cors({
+    origin: 'http://localhost:5173'
+  }));
+
+app.use(morgan('dev'));
 app.use(express.json());
+
 
 app.get("/", (req, res) => {
     res.send("Hey que tal");
@@ -12,8 +22,8 @@ app.get("/", (req, res) => {
 
 
 app.post("/login", (req, res) => {
-    const { user, pass } = req.body;
-    if (user === "Fulanito" && pass === "tilin") {
+    const { email, password } = req.body;
+    if (email === "PRUEBA" && password === "TILIN") {
         res.status(200).send();
     } else {
         res.status(403).send();
